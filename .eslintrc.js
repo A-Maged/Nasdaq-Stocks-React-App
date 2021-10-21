@@ -5,7 +5,6 @@ const folders = fs
   .filter((dirent) => dirent.isDirectory())
   .map((dirent) => dirent.name);
 
-console.log(folders);
 module.exports = {
   extends: ['react-app', 'react-app/jest', 'prettier'],
   plugins: ['prettier', 'react', 'import'],
