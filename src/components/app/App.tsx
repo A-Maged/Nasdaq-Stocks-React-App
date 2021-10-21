@@ -2,9 +2,9 @@ import { ChakraProvider } from '@chakra-ui/react';
 import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import { Routes } from './routes';
+import { Routes } from '../routes';
 
-function App() {
+export function App() {
   return (
     <HelmetProvider>
       <ChakraProvider>
@@ -15,5 +15,3 @@ function App() {
     </HelmetProvider>
   );
 }
-
-export default App;
