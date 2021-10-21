@@ -25,30 +25,7 @@
     "lint:fix": "npm run lint -- --fix"
   },
   "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest",
-      "prettier"
-    ],
-    "plugins": [
-      "react",
-      "prettier",
-      "import"
-    ],
-    "rules": {
-      "import/order": [
-        "error",
-        {
-          "newlines-between": "always"
-        }
-      ],
-      "prettier/prettier": [
-        "error",
-        {
-          "singleQuote": true
-        }
-      ]
-    }
+    "extends": ".eslintrc.js"
   },
   "browserslist": {
     "production": [
