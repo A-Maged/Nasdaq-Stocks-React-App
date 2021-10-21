@@ -9,7 +9,6 @@ export function Home() {
     <MainLayout
       wrapperProps={{
         color: 'white',
-        minH: '100vh',
       }}
       containerProps={{
         maxW: 'container.md',

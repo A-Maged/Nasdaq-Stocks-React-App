@@ -29,9 +29,9 @@ export function MainLayout({
         <title>{title}</title>
       </Helmet>
 
-      <Box bg="twitter.500" {...wrapperProps}>
+      <Box bg="twitter.500" minH="100vh" {...wrapperProps}>
         <Container
-          maxW="8xl"
+          maxW="6xl"
           as="main"
           d="flex"
           flexDirection="column"
