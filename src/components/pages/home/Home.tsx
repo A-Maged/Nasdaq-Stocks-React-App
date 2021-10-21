@@ -1,4 +1,6 @@
-import { Image, Center } from '@chakra-ui/react';
+import { Text, Image, Center } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
+import { ArrowForwardIcon } from '@chakra-ui/icons';
 
 import { MainLayout } from 'components/layout/main';
 
@@ -6,7 +8,6 @@ export function Home() {
   return (
     <MainLayout
       wrapperProps={{
-        bg: 'twitter.500',
         color: 'white',
         minH: '100vh',
       }}
@@ -15,11 +16,18 @@ export function Home() {
       }}
     >
       <Center h="100vh">
-        <Image
-          w="64"
-          src={process.env.PUBLIC_URL + 'logo-white.png'}
-          alt="logo"
-        />
+        <Link to="/explore">
+          <Image
+            w="64"
+            src={process.env.PUBLIC_URL + 'logo-white.png'}
+            alt="logo"
+          />
+
+          <Text fontSize="sm" textAlign="center" mt="2">
+            Click to explore stocks
+            <ArrowForwardIcon ml="2" />
+          </Text>
+        </Link>
       </Center>
     </MainLayout>
   );

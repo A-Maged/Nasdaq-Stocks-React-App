@@ -29,7 +29,7 @@ export function MainLayout({
         <title>{title}</title>
       </Helmet>
 
-      <Box {...wrapperProps}>
+      <Box bg="twitter.500" {...wrapperProps}>
         <Container
           maxW="8xl"
           as="main"
