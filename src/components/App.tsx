@@ -1,10 +1,13 @@
 import { ChakraProvider } from '@chakra-ui/react';
+import { HelmetProvider } from 'react-helmet-async';
 
 function App() {
   return (
-    <ChakraProvider>
-      <div>app</div>
-    </ChakraProvider>
+    <HelmetProvider>
+      <ChakraProvider>
+        <div>app</div>
+      </ChakraProvider>
+    </HelmetProvider>
   );
 }
 
