@@ -13,14 +13,14 @@ const queryClient = new QueryClient({
 
 export function App() {
   return (
-    <HelmetProvider>
-      <ChakraProvider>
-        <Router>
-          <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <HelmetProvider>
+        <ChakraProvider>
+          <Router>
             <Routes />
-          </QueryClientProvider>
-        </Router>
-      </ChakraProvider>
-    </HelmetProvider>
+          </Router>
+        </ChakraProvider>
+      </HelmetProvider>
+    </QueryClientProvider>
   );
 }
