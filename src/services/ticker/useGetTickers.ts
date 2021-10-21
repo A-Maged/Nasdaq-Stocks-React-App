@@ -14,18 +14,21 @@ export function useGetTickers(limit = 10) {
     makeFetchTickers(limit),
     {
       getNextPageParam: (apiResponse) => apiResponse?.next_url,
+      refetchOnMount: false,
     }
   );
 }
 
 const polygonTickerRepo = new PolygonTickerRepo();
 
-const makeFetchTickers: (
-  limit: number
-) => QueryFunction<TickerListReturn, QueryKey> =
+const makeFetchTickers: MakeFetchTickers =
   (limit: number) =>
   ({ pageParam: nextUrl }) => {
     const url = nextUrl ?? '/reference/tickers';
 
     return polygonTickerRepo.list({ url, limit });
   };
+
+type MakeFetchTickers = (
+  limit: number
+) => QueryFunction<TickerListReturn, QueryKey>;
