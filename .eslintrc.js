@@ -29,10 +29,18 @@ module.exports = {
           'object',
           'type',
         ],
-        pathGroups: folders.map((folder) => ({
-          pattern: folder,
-          group: 'internal',
-        })),
+        pathGroups: [
+          {
+            /* group top-level folders */
+            pattern: `@(${folders.join('|')})`,
+            group: 'internal',
+          },
+          /* group sub-folders */
+          ...folders.map((folder) => ({
+            pattern: `${folder}/**`,
+            group: 'internal',
+          })),
+        ],
         pathGroupsExcludedImportTypes: folders,
       },
     ],
