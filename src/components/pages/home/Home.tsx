@@ -14,7 +14,7 @@ export function Home() {
         maxW: 'container.md',
       }}
     >
-      <Center h="100vh">
+      <Center h="90vh">
         <Link to="/explore">
           <Image
             w="64"
@@ -22,11 +22,17 @@ export function Home() {
             alt="logo"
           />
 
-          <Text fontSize="sm" textAlign="center" mt="2">
+          <Text fontSize="md" textAlign="center" mt="4">
             Click to explore stocks
             <ArrowForwardIcon ml="2" />
           </Text>
         </Link>
+      </Center>
+
+      <Center>
+        <Text fontSize="sm" textAlign="center" mt="2">
+          By <br /> Abdelrahman Maged
+        </Text>
       </Center>
     </MainLayout>
   );
