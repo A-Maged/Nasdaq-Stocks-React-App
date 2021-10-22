@@ -59,3 +59,5 @@ export class PolygonTickerRepo implements TickerRepo {
       });
   };
 }
+
+export const polygonTickerRepoSingleton = new PolygonTickerRepo();

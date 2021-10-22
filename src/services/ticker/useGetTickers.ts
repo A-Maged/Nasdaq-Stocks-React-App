@@ -4,9 +4,9 @@ import { QueryFunction, QueryKey } from 'react-query';
 import { useToast } from '@chakra-ui/react';
 
 import {
+  polygonTickerRepoSingleton,
   TickerApiError,
   TickerListApiResponse,
-  PolygonTickerRepo,
   TickerListQuery,
 } from 'api/repos/TickerRepo';
 
@@ -31,12 +31,10 @@ export function useGetTickers(query: Omit<TickerListQuery, 'url'>) {
   );
 }
 
-const polygonTickerRepo = new PolygonTickerRepo();
-
 const makeFetchTickers: MakeFetchTickers =
   (query) =>
   ({ pageParam: nextUrl }) => {
-    return polygonTickerRepo.list({ url: nextUrl, ...query });
+    return polygonTickerRepoSingleton.list({ url: nextUrl, ...query });
   };
 
 type MakeFetchTickers = (

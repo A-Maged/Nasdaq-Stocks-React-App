@@ -1,4 +1,7 @@
-export { PolygonTickerRepo } from './PolygonTickerRepo';
+export {
+  PolygonTickerRepo,
+  polygonTickerRepoSingleton,
+} from './PolygonTickerRepo';
 
 export type {
   PolygonTicker,

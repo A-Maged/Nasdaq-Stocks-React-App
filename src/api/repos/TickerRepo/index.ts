@@ -1,2 +1,2 @@
 export * from './baseTickerRepo';
-export { PolygonTickerRepo } from './PolygonTickerRepo';
+export * from './PolygonTickerRepo';
