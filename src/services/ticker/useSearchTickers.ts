@@ -7,16 +7,17 @@ import {
   TickerApiError,
   TickerListApiResponse,
   PolygonTickerRepo,
-  TickerListQuery,
+  TickerSearchQuery,
 } from 'api/repos/TickerRepo';
 
-export function useGetTickers(query: Omit<TickerListQuery, 'url'>) {
+export function useSearchTickers(query: Omit<TickerSearchQuery, 'url'>) {
   const toast = useToast();
 
   return useInfiniteQuery<TickerListApiResponse, AxiosError<TickerApiError>>(
-    'tickers',
+    'tickers-search',
     makeFetchTickers(query),
     {
+      enabled: !!query.search,
       getNextPageParam: (apiResponse) => apiResponse?.next_url,
       refetchOnMount: false,
       onError: (error) => {
@@ -35,10 +36,9 @@ const polygonTickerRepo = new PolygonTickerRepo();
 
 const makeFetchTickers: MakeFetchTickers =
   (query) =>
-  ({ pageParam: nextUrl }) => {
-    return polygonTickerRepo.list({ url: nextUrl, ...query });
-  };
+  ({ pageParam: nextUrl }) =>
+    polygonTickerRepo.search({ url: nextUrl, ...query });
 
 type MakeFetchTickers = (
-  query: Omit<TickerListQuery, 'url'>
+  query: Omit<TickerSearchQuery, 'url'>
 ) => QueryFunction<TickerListApiResponse, QueryKey>;
