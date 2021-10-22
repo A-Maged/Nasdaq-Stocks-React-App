@@ -1,7 +1,7 @@
 import { MainLayout } from 'components/layout/main';
 
 import { PageStateProvider } from './state';
-import { TickersList } from './components/TickersList';
+import { StocksList } from './components/StocksList';
 import { SearchInput } from './components/SearchInput';
 
 export function Explore() {
@@ -13,7 +13,7 @@ export function Explore() {
         containerProps={{ py: '6' }}
       >
         <SearchInput />
-        <TickersList />
+        <StocksList />
       </MainLayout>
     </PageStateProvider>
   );

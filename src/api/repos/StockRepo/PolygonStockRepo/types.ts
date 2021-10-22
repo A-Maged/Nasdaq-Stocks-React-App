@@ -1,18 +1,18 @@
-export type PolygonTickersApiResponse = {
-  results: PolygonTicker[];
+export type PolygonStocksApiResponse = {
+  results: PolygonStock[];
   status: string;
   request_id: string;
   count: number;
   next_url: string;
 };
 
-export type PolygonTickersApiError = {
+export type PolygonStocksApiError = {
   status: 'ERROR';
   request_id: string;
   error: string;
 };
 
-export type PolygonTicker = {
+export type PolygonStock = {
   ticker: string;
   name: string;
   market: string;

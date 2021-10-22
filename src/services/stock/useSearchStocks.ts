@@ -4,18 +4,18 @@ import { QueryFunction, QueryKey } from 'react-query';
 import { useToast } from '@chakra-ui/react';
 
 import {
-  polygonTickerRepoSingleton,
-  TickerApiError,
-  TickerListApiResponse,
-  TickerSearchQuery,
-} from 'api/repos/TickerRepo';
+  polygonStockRepoSingleton,
+  StockApiError,
+  StockListApiResponse,
+  StockSearchQuery,
+} from 'api/repos/StockRepo';
 
-export function useSearchTickers(query: Omit<TickerSearchQuery, 'url'>) {
+export function useSearchStocks(query: Omit<StockSearchQuery, 'url'>) {
   const toast = useToast();
 
-  return useInfiniteQuery<TickerListApiResponse, AxiosError<TickerApiError>>(
-    'tickers-search',
-    makeFetchTickers(query),
+  return useInfiniteQuery<StockListApiResponse, AxiosError<StockApiError>>(
+    'stocks-search',
+    makeFetchStocks(query),
     {
       enabled: !!query.search,
       getNextPageParam: (apiResponse) => apiResponse?.next_url,
@@ -32,11 +32,11 @@ export function useSearchTickers(query: Omit<TickerSearchQuery, 'url'>) {
   );
 }
 
-const makeFetchTickers: MakeFetchTickers =
+const makeFetchStocks: MakeFetchStocks =
   (query) =>
   ({ pageParam: nextUrl }) =>
-    polygonTickerRepoSingleton.search({ url: nextUrl, ...query });
+    polygonStockRepoSingleton.search({ url: nextUrl, ...query });
 
-type MakeFetchTickers = (
-  query: Omit<TickerSearchQuery, 'url'>
-) => QueryFunction<TickerListApiResponse, QueryKey>;
+type MakeFetchStocks = (
+  query: Omit<StockSearchQuery, 'url'>
+) => QueryFunction<StockListApiResponse, QueryKey>;

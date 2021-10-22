@@ -3,16 +3,16 @@ import { createContext } from 'use-context-selector';
 import { UseInfiniteQueryResult } from 'react-query';
 import { AxiosError } from 'axios';
 
-import { useGetTickers } from 'services/ticker/useGetTickers';
-import { useSearchTickers } from 'services/ticker/useSearchTickers';
+import { useGetStocks } from 'services/stock/useGetStocks';
+import { useSearchStocks } from 'services/stock/useSearchStocks';
 import { useDebounce } from 'hooks/useDebounce';
-import { TickerApiError, TickerListApiResponse } from 'api/repos/TickerRepo';
+import { StockApiError, StockListApiResponse } from 'api/repos/StockRepo';
 
 type State = {
-  tickersCount: number | undefined;
+  stocksCount: number | undefined;
   queryState: UseInfiniteQueryResult<
-    TickerListApiResponse,
-    AxiosError<TickerApiError, any>
+    StockListApiResponse,
+    AxiosError<StockApiError, any>
   >;
   setSearchTerm: React.Dispatch<string>;
 };
@@ -23,29 +23,29 @@ export const PageStateProvider = ({ children }: { children: ReactNode }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const debouncedSearchTerm = useDebounce<string>(searchTerm, 500);
 
-  const getTickersState = useGetTickers({ limit: 10 });
-  const searchTickersState = useSearchTickers({
+  const getStocksState = useGetStocks({ limit: 10 });
+  const searchStocksState = useSearchStocks({
     search: debouncedSearchTerm,
   });
-  const queryState = debouncedSearchTerm ? searchTickersState : getTickersState;
-  const { data: tickers } = queryState;
+  const queryState = debouncedSearchTerm ? searchStocksState : getStocksState;
+  const { data: stocks } = queryState;
 
-  const tickersCount = tickers?.pages.reduce((count, { results }) => {
+  const stocksCount = stocks?.pages.reduce((count, { results }) => {
     count += results.length;
     return count;
   }, 0);
 
   useEffect(
     function refetchSearchQuery() {
-      searchTickersState.remove();
-      searchTickersState.refetch();
+      searchStocksState.remove();
+      searchStocksState.refetch();
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [debouncedSearchTerm]
   );
 
   const contextValue = {
-    tickersCount,
+    stocksCount,
     queryState,
     setSearchTerm,
   };

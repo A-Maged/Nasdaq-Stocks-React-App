@@ -1,10 +1,10 @@
 import { httpClient } from 'api';
 
-import { TickerListApiResponse, TickerSearchQuery } from '..';
-import { TickerListQuery, TickerRepo } from '../baseTickerRepo';
-import { PolygonTickersApiResponse } from './types';
+import { StockListApiResponse, StockSearchQuery } from '..';
+import { StockListQuery, StockRepo } from '../baseStockRepo';
+import { PolygonStocksApiResponse } from './types';
 
-export class PolygonTickerRepo implements TickerRepo {
+export class PolygonStockRepo implements StockRepo {
   getUrl = (nextPageUrl?: string) => {
     return nextPageUrl ?? '/reference/tickers';
   };
@@ -12,9 +12,9 @@ export class PolygonTickerRepo implements TickerRepo {
   search = ({
     url,
     ...query
-  }: TickerSearchQuery): Promise<TickerListApiResponse> => {
+  }: StockSearchQuery): Promise<StockListApiResponse> => {
     return httpClient
-      .get<PolygonTickersApiResponse>(this.getUrl(url), {
+      .get<PolygonStocksApiResponse>(this.getUrl(url), {
         params: {
           market: 'stocks',
           active: true,
@@ -35,12 +35,9 @@ export class PolygonTickerRepo implements TickerRepo {
 
   details = (ticker: string) => new Promise(() => {});
 
-  list = ({
-    url,
-    ...query
-  }: TickerListQuery): Promise<TickerListApiResponse> => {
+  list = ({ url, ...query }: StockListQuery): Promise<StockListApiResponse> => {
     return httpClient
-      .get<PolygonTickersApiResponse>(this.getUrl(url), {
+      .get<PolygonStocksApiResponse>(this.getUrl(url), {
         params: {
           market: 'stocks',
           active: true,
@@ -60,4 +57,4 @@ export class PolygonTickerRepo implements TickerRepo {
   };
 }
 
-export const polygonTickerRepoSingleton = new PolygonTickerRepo();
+export const polygonStockRepoSingleton = new PolygonStockRepo();
