@@ -8,7 +8,7 @@ import {
   StockApiError,
   StockListApiResponse,
   StockListQuery,
-} from 'api/repos/StockRepo';
+} from 'api/repos/stockRepo';
 
 export function useGetStocks(query: Omit<StockListQuery, 'url'>) {
   const toast = useToast();

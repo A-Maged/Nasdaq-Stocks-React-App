@@ -6,7 +6,7 @@ import { AxiosError } from 'axios';
 import { useGetStocks } from 'services/stock/useGetStocks';
 import { useSearchStocks } from 'services/stock/useSearchStocks';
 import { useDebounce } from 'hooks/useDebounce';
-import { StockApiError, StockListApiResponse } from 'api/repos/StockRepo';
+import { StockApiError, StockListApiResponse } from 'api/repos/stockRepo';
 
 type State = {
   stocksCount: number | undefined;
