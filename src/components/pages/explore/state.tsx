@@ -3,8 +3,8 @@ import { createContext } from 'use-context-selector';
 import { UseInfiniteQueryResult } from 'react-query';
 import { AxiosError } from 'axios';
 
-import { useGetStocks } from 'services/stock/useGetStocks';
-import { useSearchStocks } from 'services/stock/useSearchStocks';
+import { useGetStocks } from 'services/stocks/useGetStocks';
+import { useSearchStocks } from 'services/stocks/useSearchStocks';
 import { useDebounce } from 'hooks/useDebounce';
 import { StockApiError, StockListApiResponse } from 'api/repos/stockRepo';
 
