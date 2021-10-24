@@ -1,7 +1,17 @@
 import axios from 'axios';
 
-import { apiBaseURL } from 'config';
+import { apiBaseUrlV1, apiBaseUrlV3 } from 'config';
 
-export const httpClient = axios.create({
-  baseURL: apiBaseURL,
+export const httpClientV3 = axios.create({
+  baseURL: apiBaseUrlV3,
+  params: {
+    apiKey: process.env.REACT_APP_API_KEY,
+  },
+});
+
+export const httpClientV1 = axios.create({
+  baseURL: apiBaseUrlV1,
+  params: {
+    apiKey: process.env.REACT_APP_API_KEY,
+  },
 });
