@@ -1,13 +1,13 @@
-import { Avatar, Image, Spinner } from '@chakra-ui/react';
+import { Avatar, Image, Spinner, ImageProps } from '@chakra-ui/react';
 import { useState } from 'react';
 
-export function ImageWithFallback({
-  src,
-  name,
-}: {
+type Props = {
   src?: string;
   name?: string;
-}) {
+  imageProps?: ImageProps;
+};
+
+export function ImageWithAvatarFallback({ src, name, imageProps = {} }: Props) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
@@ -34,6 +34,7 @@ export function ImageWithFallback({
         setError(true);
         setLoading(false);
       }}
+      {...imageProps}
     />
   );
 }

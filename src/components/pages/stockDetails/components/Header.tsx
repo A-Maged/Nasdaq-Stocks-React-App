@@ -1,7 +1,7 @@
 import { HStack, Link, Text, VStack } from '@chakra-ui/react';
 import { useContextSelector } from 'use-context-selector';
 
-import { ImageWithFallback } from 'components/shared/ImageWithFallback';
+import { ImageWithAvatarFallback } from 'components/shared/ImageWithFallback';
 
 import { pageContext } from '../state';
 
@@ -15,7 +15,13 @@ export function Header() {
 
   return (
     <HStack spacing="6">
-      <ImageWithFallback src={stockDetails?.logo} name={stockDetails?.name} />
+      <ImageWithAvatarFallback
+        src={stockDetails?.logo}
+        name={stockDetails?.name}
+        imageProps={{
+          w: '28',
+        }}
+      />
 
       <VStack spacing="1" alignItems="flex-start">
         <Text fontWeight="bold">{ticker}</Text>
