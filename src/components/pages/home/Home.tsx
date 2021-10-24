@@ -14,7 +14,7 @@ export function Home() {
         maxW: 'container.md',
       }}
     >
-      <Center h="100vh" flexDirection="column">
+      <Center h="85vh" flexDirection="column">
         <Center flexGrow={1} mt={15}>
           <Link to="/explore">
             <Image

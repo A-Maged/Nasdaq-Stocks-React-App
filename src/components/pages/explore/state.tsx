@@ -23,7 +23,7 @@ export const PageStateProvider = ({ children }: { children: ReactNode }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const debouncedSearchTerm = useDebounce<string>(searchTerm, 500);
 
-  const getStocksState = useGetStocks({ limit: 10 });
+  const getStocksState = useGetStocks({ limit: 40 });
   const searchStocksState = useSearchStocks({
     search: debouncedSearchTerm,
   });

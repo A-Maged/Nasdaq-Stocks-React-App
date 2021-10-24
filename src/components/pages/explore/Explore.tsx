@@ -7,11 +7,7 @@ import { SearchInput } from './components/SearchInput';
 export function Explore() {
   return (
     <PageStateProvider>
-      <MainLayout
-        pageTitle="Explore"
-        wrapperProps={{ color: 'white' }}
-        containerProps={{ py: '6' }}
-      >
+      <MainLayout pageTitle="Explore" containerProps={{ pt: '14', pb: '6' }}>
         <SearchInput />
         <StocksList />
       </MainLayout>

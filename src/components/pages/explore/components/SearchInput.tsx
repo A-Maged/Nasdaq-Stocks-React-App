@@ -20,7 +20,7 @@ export function SearchInput() {
         onChange={(e) => {
           setSearchTerm(e.target.value);
         }}
-        placeholder="Search"
+        placeholder="Search for stocks"
         variant="filled"
         color="black"
         bg="white"

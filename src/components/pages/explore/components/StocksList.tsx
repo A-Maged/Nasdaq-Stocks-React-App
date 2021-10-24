@@ -35,7 +35,7 @@ export function StocksList() {
           ) : null
         }
       >
-        <SimpleGrid columns={[1, 2, 3, 4]} spacing={7}>
+        <SimpleGrid columns={[1, 2, 3, 4]} spacingX={10} spacingY={3}>
           {stocks?.pages.map((page) =>
             page.results.map((stock) => (
               <MemoizedStockListItem key={stock.ticker} stock={stock} />
