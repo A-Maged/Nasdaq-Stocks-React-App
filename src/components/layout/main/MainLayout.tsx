@@ -8,6 +8,8 @@ import {
   ContainerProps,
 } from '@chakra-ui/react';
 
+import { Header } from './components/Header';
+
 type MainLayoutProps = PropsWithChildren<{
   pageTitle?: string;
   containerProps?: ContainerProps;
@@ -30,6 +32,8 @@ export function MainLayout({
       </Helmet>
 
       <Box bg="twitter.500" minH="100vh" {...wrapperProps}>
+        <Header />
+
         <Container
           maxW="6xl"
           as="main"
