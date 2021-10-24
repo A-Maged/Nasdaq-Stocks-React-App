@@ -19,7 +19,6 @@ export function useSearchStocks(query: Omit<StockSearchQuery, 'url'>) {
     {
       enabled: !!query.search,
       getNextPageParam: (apiResponse) => apiResponse?.next_url,
-      refetchOnMount: false,
       onError: (error) => {
         toast({
           title: error?.response?.data.error,

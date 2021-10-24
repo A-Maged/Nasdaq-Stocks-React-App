@@ -37,8 +37,10 @@ export const PageStateProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(
     function refetchSearchQuery() {
-      searchStocksState.remove();
-      searchStocksState.refetch();
+      if (debouncedSearchTerm) {
+        searchStocksState.remove();
+        searchStocksState.refetch();
+      }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [debouncedSearchTerm]

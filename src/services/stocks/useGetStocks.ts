@@ -18,7 +18,6 @@ export function useGetStocks(query: Omit<StockListQuery, 'url'>) {
     makeFetchStocks(query),
     {
       getNextPageParam: (apiResponse) => apiResponse?.next_url,
-      refetchOnMount: false,
       onError: (error) => {
         toast({
           title: error?.response?.data.error,
