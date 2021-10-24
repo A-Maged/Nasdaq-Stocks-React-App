@@ -2,7 +2,7 @@ import { Text, Box } from '@chakra-ui/react';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { Stock } from 'api/repos/stockRepo/baseStockRepo';
+import { Stock } from 'api';
 
 type Props = { stock: Stock };
 

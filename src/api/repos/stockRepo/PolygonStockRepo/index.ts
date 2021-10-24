@@ -1,10 +1,1 @@
-export {
-  PolygonStockRepo,
-  polygonStockRepoSingleton,
-} from './PolygonStockRepo';
-
-export type {
-  PolygonStock,
-  PolygonStocksApiError,
-  PolygonStocksApiResponse,
-} from './types';
+export { PolygonStockRepo } from './PolygonStockRepo';

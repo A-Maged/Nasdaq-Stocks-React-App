@@ -2,11 +2,11 @@ import { useQuery } from 'react-query';
 import { AxiosError } from 'axios';
 
 import {
-  polygonStockRepoSingleton,
   StockApiError,
   StockDailyStatsApiResponse,
   StockDailyStatsQuery,
-} from 'api/repos/stockRepo';
+  stocksRepoSingleton,
+} from 'api';
 
 export function useGetStockDailyStats(query: StockDailyStatsQuery) {
   return useQuery<StockDailyStatsApiResponse, AxiosError<StockApiError>>(
@@ -19,4 +19,4 @@ export function useGetStockDailyStats(query: StockDailyStatsQuery) {
 }
 
 const makeFetch = (query: StockDailyStatsQuery) => () =>
-  polygonStockRepoSingleton.dailyStats(query);
+  stocksRepoSingleton.dailyStats(query);

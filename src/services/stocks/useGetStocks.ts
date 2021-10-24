@@ -4,11 +4,11 @@ import { QueryFunction, QueryKey } from 'react-query';
 import { useToast } from '@chakra-ui/react';
 
 import {
-  polygonStockRepoSingleton,
+  stocksRepoSingleton,
   StockApiError,
   StockListApiResponse,
   StockListQuery,
-} from 'api/repos/stockRepo';
+} from 'api';
 
 export function useGetStocks(query: Omit<StockListQuery, 'url'>) {
   const toast = useToast();
@@ -34,7 +34,7 @@ export function useGetStocks(query: Omit<StockListQuery, 'url'>) {
 const makeFetchStocks: MakeFetchStocks =
   (query) =>
   ({ pageParam: nextUrl }) => {
-    return polygonStockRepoSingleton.list({ url: nextUrl, ...query });
+    return stocksRepoSingleton.list({ url: nextUrl, ...query });
   };
 
 type MakeFetchStocks = (

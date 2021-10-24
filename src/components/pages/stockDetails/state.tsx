@@ -11,7 +11,7 @@ import {
   StockApiError,
   StockDailyStatsApiResponse,
   StockDetailsApiResponse,
-} from 'api/repos/stockRepo';
+} from 'api';
 
 type State = {
   ticker: string;

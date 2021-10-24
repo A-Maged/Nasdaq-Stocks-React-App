@@ -91,5 +91,3 @@ export class PolygonStockRepo implements StockRepo {
       }));
   };
 }
-
-export const polygonStockRepoSingleton = new PolygonStockRepo();

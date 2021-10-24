@@ -1,2 +1,5 @@
+import { PolygonStockRepo } from './PolygonStockRepo';
+import { StockRepo } from './baseStockRepo';
 export * from './baseStockRepo';
-export * from './PolygonStockRepo';
+
+export const stocksRepoSingleton: StockRepo = new PolygonStockRepo();

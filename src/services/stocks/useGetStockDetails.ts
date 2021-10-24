@@ -2,16 +2,16 @@ import { useQuery } from 'react-query';
 import { AxiosError } from 'axios';
 
 import {
-  polygonStockRepoSingleton,
+  stocksRepoSingleton,
   StockApiError,
   StockDetailsApiResponse,
   StockDetailsQuery,
-} from 'api/repos/stockRepo';
+} from 'api';
 
 export function useGetStockDetails(query: StockDetailsQuery) {
   return useQuery<StockDetailsApiResponse, AxiosError<StockApiError>>(
     ['Stock-details', query.ticker],
-    () => polygonStockRepoSingleton.details(query),
+    () => stocksRepoSingleton.details(query),
     {
       enabled: !!query.ticker,
     }
