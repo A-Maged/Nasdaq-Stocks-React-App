@@ -1,12 +1,6 @@
 import { PropsWithChildren } from 'react';
 import { Helmet } from 'react-helmet-async';
-import {
-  Flex,
-  Box,
-  BoxProps,
-  Container,
-  ContainerProps,
-} from '@chakra-ui/react';
+import { Box, BoxProps, Container, ContainerProps } from '@chakra-ui/react';
 
 import { Header } from './components/Header';
 
@@ -25,7 +19,7 @@ export function MainLayout({
   const title = pageTitle ? pageTitle + ' | Nasdaq' : 'Nasdaq';
 
   return (
-    <Flex direction="column" minH="100vh">
+    <>
       <Helmet>
         <meta charSet="utf-8" />
         <title>{title}</title>
@@ -45,6 +39,6 @@ export function MainLayout({
           {children}
         </Container>
       </Box>
-    </Flex>
+    </>
   );
 }

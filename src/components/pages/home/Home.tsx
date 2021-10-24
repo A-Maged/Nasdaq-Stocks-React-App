@@ -2,7 +2,7 @@ import { Text, Image, Center } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { ArrowForwardIcon } from '@chakra-ui/icons';
 
-import { MainLayout } from 'components/layout/main';
+import { MainLayout } from 'components/layouts/main';
 
 export function Home() {
   return (
