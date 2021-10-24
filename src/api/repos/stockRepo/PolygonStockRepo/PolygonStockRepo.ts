@@ -1,27 +1,32 @@
-import { httpClient } from 'api';
+import { format, subDays } from 'date-fns';
 
-import { StockListApiResponse, StockSearchQuery } from '..';
-import { StockListQuery, StockRepo } from '../baseStockRepo';
-import { PolygonStocksApiResponse } from './types';
+import { httpClientV1, httpClientV3 } from 'api';
+
+import {
+  StockListQuery,
+  StockDetailsQuery,
+  StockSearchQuery,
+  StockRepo,
+  StockDailyStatsQuery,
+} from '../baseStockRepo';
+import {
+  PolygonStockDailyStatsApiResponse,
+  PolygonStockDetailsApiResponse,
+  PolygonStocksApiResponse,
+} from './types';
 
 export class PolygonStockRepo implements StockRepo {
-  getUrl = (nextPageUrl?: string) => {
-    return nextPageUrl ?? '/reference/tickers';
-  };
+  search = ({ url: nextPageUrl, ...query }: StockSearchQuery) => {
+    const url = nextPageUrl ?? '/reference/tickers';
 
-  search = ({
-    url,
-    ...query
-  }: StockSearchQuery): Promise<StockListApiResponse> => {
-    return httpClient
-      .get<PolygonStocksApiResponse>(this.getUrl(url), {
+    return httpClientV3
+      .get<PolygonStocksApiResponse>(url, {
         params: {
           market: 'stocks',
           active: true,
           sort: 'ticker',
           order: 'asc',
           limit: 10,
-          apiKey: process.env.REACT_APP_API_KEY,
           ...query,
         },
       })
@@ -33,18 +38,30 @@ export class PolygonStockRepo implements StockRepo {
       });
   };
 
-  details = (ticker: string) => new Promise(() => {});
+  details = ({ ticker }: StockDetailsQuery) => {
+    return httpClientV1
+      .get<PolygonStockDetailsApiResponse>(`/meta/symbols/${ticker}/company`)
+      .then(({ data }) => ({
+        name: data.name,
+        symbol: data.symbol,
+        description: data.description,
+        logo: data.logo,
+        url: data.url,
+        industry: data.industry,
+      }));
+  };
 
-  list = ({ url, ...query }: StockListQuery): Promise<StockListApiResponse> => {
-    return httpClient
-      .get<PolygonStocksApiResponse>(this.getUrl(url), {
+  list = ({ url: nextPageUrl, ...query }: StockListQuery) => {
+    const url = nextPageUrl ?? '/reference/tickers';
+
+    return httpClientV3
+      .get<PolygonStocksApiResponse>(url, {
         params: {
           market: 'stocks',
           active: true,
           sort: 'ticker',
           order: 'asc',
           limit: 10,
-          apiKey: process.env.REACT_APP_API_KEY,
           ...query,
         },
       })
@@ -54,6 +71,24 @@ export class PolygonStockRepo implements StockRepo {
           next_url: data.next_url,
         };
       });
+  };
+
+  dailyStats = (query: StockDailyStatsQuery) => {
+    const yesterday = subDays(new Date(), 1);
+    const date = query.date || yesterday;
+    const dateFormatted = format(date, 'yyyy-MM-dd');
+
+    return httpClientV1
+      .get<PolygonStockDailyStatsApiResponse>(
+        `open-close/${query.ticker}/${dateFormatted}`
+      )
+      .then(({ data }) => ({
+        open: data.open,
+        high: data.high,
+        low: data.low,
+        close: data.close,
+        volume: data.volume,
+      }));
   };
 }
 

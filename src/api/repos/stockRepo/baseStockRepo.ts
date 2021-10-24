@@ -1,8 +1,10 @@
 export interface StockRepo {
-  getUrl: (...args: any) => string;
   list: (query: StockListQuery) => Promise<StockListApiResponse>;
   search: (query: StockSearchQuery) => Promise<StockListApiResponse>;
-  details: (ticker: string) => Promise<unknown>; // @Todo: fix the response type
+  details: (query: StockDetailsQuery) => Promise<StockDetailsApiResponse>;
+  dailyStats: (
+    query: StockDailyStatsQuery
+  ) => Promise<StockDailyStatsApiResponse>;
 }
 
 export type StockListQuery = { url?: string; limit?: number; market?: string };
@@ -12,6 +14,32 @@ export type StockSearchQuery = {
   url?: string;
   limit?: number;
   market?: string;
+};
+
+export type StockDailyStatsQuery = {
+  ticker: string;
+  date?: Date;
+};
+
+export type StockDetailsQuery = {
+  ticker: string;
+};
+
+export type StockDetailsApiResponse = {
+  name: string;
+  symbol: string;
+  description: string;
+  logo: string;
+  url: string;
+  industry: string;
+};
+
+export type StockDailyStatsApiResponse = {
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+  volume: number;
 };
 
 export type StockListApiResponse = {

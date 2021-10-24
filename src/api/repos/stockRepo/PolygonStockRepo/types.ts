@@ -26,3 +26,46 @@ export type PolygonStock = {
   share_class_figi: string;
   last_updated_utc: string;
 };
+
+export type PolygonStockDetailsApiResponse = {
+  logo: string;
+  listdate: string;
+  cik: string;
+  bloomberg: string;
+  lei: string;
+  sic: number;
+  country: string;
+  industry: string;
+  sector: string;
+  marketcap: number;
+  employees: number;
+  phone: string;
+  ceo: string;
+  url: string;
+  description: string;
+  exchange: string;
+  name: string;
+  symbol: string;
+  exchangeSymbol: string;
+  hq_address: string;
+  hq_state: string;
+  hq_country: string;
+  type: string;
+  updated: string;
+  tags: string[];
+  similar: string[];
+  active: boolean;
+};
+
+export type PolygonStockDailyStatsApiResponse = {
+  status: string;
+  from: string;
+  symbol: string;
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+  volume: number;
+  afterHours: number;
+  preMarket: number;
+};
