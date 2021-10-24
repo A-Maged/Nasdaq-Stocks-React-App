@@ -10,7 +10,7 @@ import {
 
 import { Header } from './components/Header';
 
-type MainLayoutProps = PropsWithChildren<{
+type Props = PropsWithChildren<{
   pageTitle?: string;
   containerProps?: ContainerProps;
   wrapperProps?: BoxProps;
@@ -21,7 +21,7 @@ export function MainLayout({
   pageTitle,
   containerProps = {},
   wrapperProps = {},
-}: MainLayoutProps) {
+}: Props) {
   const title = pageTitle ? pageTitle + ' | Nasdaq' : 'Nasdaq';
 
   return (
