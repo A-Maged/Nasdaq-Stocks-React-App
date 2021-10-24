@@ -7,7 +7,11 @@ import { Routes } from '../routes';
 
 const queryClient = new QueryClient({
   defaultOptions: {
-    queries: { refetchOnWindowFocus: false },
+    queries: {
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      retry: 2,
+    },
   },
 });
 
