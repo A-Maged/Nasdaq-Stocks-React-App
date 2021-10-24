@@ -1,5 +1,6 @@
 import { Box, Button, Center, Heading, Spinner, Text } from '@chakra-ui/react';
 import { useContextSelector } from 'use-context-selector';
+import { StatusCodes } from 'http-status-codes';
 
 import { pageContext } from '../state';
 
@@ -30,7 +31,7 @@ export function About() {
         </Text>
       );
 
-      if (error?.response?.status === 429) {
+      if (error?.response?.status === StatusCodes.TOO_MANY_REQUESTS) {
         return (
           <>
             <ErrorMsg />

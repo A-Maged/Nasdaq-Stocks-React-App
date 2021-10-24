@@ -1,3 +1,4 @@
+import { StatusCodes } from 'http-status-codes';
 import {
   Text,
   Heading,
@@ -42,7 +43,7 @@ export function DailyStats() {
         </Text>
       );
 
-      if (error?.response?.status === 429) {
+      if (error?.response?.status === StatusCodes.TOO_MANY_REQUESTS) {
         return (
           <>
             <ErrorMsg />
