@@ -6,20 +6,14 @@ import { MemoizedStockListItem } from './StocksListItem';
 import { pageContext } from '../state';
 
 export function StocksList() {
-  const stocksCount = useContextSelector(
-    pageContext,
-    (v) => v?.stocksCount || 0
-  );
-
-  const { stocks, fetchNextPage, isFetching, isError } = useContextSelector(
-    pageContext,
-    (v) => ({
-      stocks: v?.queryState.data!,
-      fetchNextPage: v?.queryState.fetchNextPage!,
-      isFetching: v?.queryState.isFetching!,
-      isError: v?.queryState.isError!,
-    })
-  );
+  const { stocksCount, stocks, fetchNextPage, isFetching, isError } =
+    useContextSelector(pageContext, (state) => ({
+      stocksCount: state?.stocksCount || 0,
+      stocks: state?.queryState.data!,
+      fetchNextPage: state?.queryState.fetchNextPage!,
+      isFetching: state?.queryState.isFetching!,
+      isError: state?.queryState.isError!,
+    }));
 
   return (
     <>

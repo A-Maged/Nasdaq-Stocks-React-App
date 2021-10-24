@@ -6,9 +6,9 @@ import { ImageWithFallback } from 'components/shared/ImageWithFallback';
 import { pageContext } from '../state';
 
 export function Header() {
-  const { stockDetails, ticker } = useContextSelector(pageContext, (v) => ({
-    ticker: v?.ticker,
-    stockDetails: v?.stockDetailsState.data,
+  const { stockDetails, ticker } = useContextSelector(pageContext, (state) => ({
+    ticker: state?.ticker,
+    stockDetails: state?.stockDetailsState.data,
   }));
 
   const urlPrefix = String(stockDetails?.url).startsWith('http') ? '' : '//';

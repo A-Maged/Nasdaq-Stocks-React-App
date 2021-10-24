@@ -7,7 +7,7 @@ import { pageContext } from '../state';
 export function SearchInput() {
   const setSearchTerm = useContextSelector(
     pageContext,
-    (v) => v?.setSearchTerm!
+    (state) => state?.setSearchTerm!
   );
 
   return (

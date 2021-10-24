@@ -23,13 +23,13 @@ export function DailyStats() {
     isError,
     error,
     refetch,
-  } = useContextSelector(pageContext, (v) => ({
-    dailyStats: v?.dailyStatsState.data,
-    isShowingEarlierStatsDate: v?.isShowingEarlierStatsDate!,
-    isFetching: v?.dailyStatsState.isFetching,
-    isError: v?.dailyStatsState.isError,
-    error: v?.dailyStatsState.error,
-    refetch: v?.dailyStatsState.refetch!,
+  } = useContextSelector(pageContext, (state) => ({
+    dailyStats: state?.dailyStatsState.data,
+    isShowingEarlierStatsDate: state?.isShowingEarlierStatsDate!,
+    isFetching: state?.dailyStatsState.isFetching,
+    isError: state?.dailyStatsState.isError,
+    error: state?.dailyStatsState.error,
+    refetch: state?.dailyStatsState.refetch!,
   }));
 
   const errorMsg = error?.response?.data.error || error?.response?.data.message;

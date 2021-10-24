@@ -5,12 +5,12 @@ import { pageContext } from '../state';
 
 export function About() {
   const { stockDetails, isLoading, isError, error, refetch } =
-    useContextSelector(pageContext, (v) => ({
-      error: v?.stockDetailsState.error,
-      isError: v?.stockDetailsState.isError,
-      isLoading: v?.stockDetailsState.isLoading,
-      stockDetails: v?.stockDetailsState.data,
-      refetch: v?.stockDetailsState.refetch!,
+    useContextSelector(pageContext, (state) => ({
+      error: state?.stockDetailsState.error,
+      isError: state?.stockDetailsState.isError,
+      isLoading: state?.stockDetailsState.isLoading,
+      stockDetails: state?.stockDetailsState.data,
+      refetch: state?.stockDetailsState.refetch!,
     }));
 
   const errorMsg = error?.response?.data.error || error?.response?.data.message;
