@@ -55,5 +55,6 @@ export type Stock = {
 };
 
 export type StockApiError = {
-  error: string;
+  error?: string;
+  message?: string;
 };

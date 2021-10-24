@@ -3,12 +3,14 @@ import { Route } from 'react-router-dom';
 
 import { Home } from 'components/pages/home';
 import { Explore } from 'components/pages/explore';
+import { StockDetails } from 'components/pages/stockDetails';
 
 export function Routes() {
   return (
     <Switch>
       <Route exact path="/" component={Home} />
       <Route exact path="/explore" component={Explore} />
+      <Route exact path="/stock-details/:ticker" component={StockDetails} />
     </Switch>
   );
 }
