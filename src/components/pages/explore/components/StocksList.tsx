@@ -24,7 +24,7 @@ export function StocksList() {
   return (
     <>
       <InfiniteScroll
-        dataLength={stocksCount} // This is important field to render the next data
+        dataLength={stocksCount}
         next={fetchNextPage}
         hasMore={true}
         loader={

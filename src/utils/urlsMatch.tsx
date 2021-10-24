@@ -1,9 +1,8 @@
 export function urlsMatch(url1: string, url2: string): boolean {
-  /* remove leading & trailing slash */
-  const stripped1 = url1.replace(/^\/|\/$/g, '');
-  const stripped2 = url2.replace(/^\/|\/$/g, '');
+  const leadingAndTrailingSlash = /^\/|\/$/g;
+  const stripped1 = url1.replace(leadingAndTrailingSlash, '');
+  const stripped2 = url2.replace(leadingAndTrailingSlash, '');
 
-  /* empty or same */
   if (stripped1 === stripped2) {
     return true;
   }
@@ -13,6 +12,6 @@ export function urlsMatch(url1: string, url2: string): boolean {
     return false;
   }
 
-  /* to match parent & sub routes */
+  /* match parent/sub routes */
   return stripped2.startsWith(stripped1);
 }
