@@ -9,7 +9,9 @@
     "lint": "eslint src",
     "lint:fix": "npm run lint -- --fix",
     "start": "react-scripts start",
-    "test": "react-scripts test"
+    "test": "react-scripts test --watchAll=false",
+    "test:watch": "react-scripts test",
+    "prepare": "husky install"
   },
   "browserslist": {
     "production": [
@@ -48,8 +50,11 @@
     "web-vitals": "^1.1.2"
   },
   "devDependencies": {
+    "@commitlint/cli": "^13.2.1",
+    "@commitlint/config-conventional": "^13.2.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
+    "@testing-library/react-hooks": "^7.0.2",
     "@testing-library/user-event": "^12.8.3",
     "@types/jest": "^26.0.24",
     "@types/node": "^12.20.33",
@@ -61,6 +66,7 @@
     "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^7.0.0",
     "prettier": "^2.4.1"
   }
 }
