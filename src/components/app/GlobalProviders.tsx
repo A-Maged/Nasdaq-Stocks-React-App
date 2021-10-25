@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { QueryClientProvider } from 'react-query';
 
-import { queryClient } from './App';
+import { queryClient } from 'api/queryClient';
 
 export function GlobalProviders({ children }: { children: ReactNode }) {
   return (
