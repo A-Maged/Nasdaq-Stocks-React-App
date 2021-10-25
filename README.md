@@ -7,6 +7,7 @@ This was a take home assignment i did for an interview with [Thndr](https://thnd
 ## Contents
 
 - [Features](#features)
+- [Run Locally](#run-locally)
 - [Scripts](#scripts)
 - [Tech Stack](#tech-stack)
 
@@ -16,6 +17,30 @@ This was a take home assignment i did for an interview with [Thndr](https://thnd
 - Load more stocks by scrolling through the screen.
 - Search for a stock.
 - See stock details.
+
+## Run Locally
+
+1. Create environment file
+
+```bash
+  cp .env.example .env
+```
+
+2. Sign up for an API key at [Polygon](https://polygon.io)
+
+3. Add API key to `REACT_APP_API_KEY` in .env file
+
+4. Install dependencies:
+
+```bash
+  npm install
+```
+
+5. Start application:
+
+```bash
+  npm start
+```
 
 ## Scripts
 
@@ -81,6 +106,6 @@ Fix linting errors
 
 **Misc:**
 
-- [date-fns](https://date-fns.org)
-- [Axios](https://github.com/axios/axios)
 - [react-infinite-scroll-component](https://www.npmjs.com/package/react-infinite-scroll-component)
+- [Axios](https://github.com/axios/axios)
+- [Date-Fns](https://date-fns.org)
