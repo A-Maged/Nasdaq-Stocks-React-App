@@ -35,6 +35,14 @@ describe('/explore', () => {
     cy.get(selectors.stockCompanyName).should('have.length.above', 1);
   });
 
+  it('loads more tickers on scroll', () => {
+    cy.scrollTo('bottom');
+
+    cy.wait('@listTickers');
+
+    cy.get(selectors.ticker).should('have.length.above', 100);
+  });
+
   it('search with ticker', () => {
     const ticker = 'AAPL';
 
