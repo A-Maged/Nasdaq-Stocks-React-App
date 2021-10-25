@@ -1,8 +1,8 @@
-import { Box, Button, Center, Heading, Spinner, Text } from '@chakra-ui/react';
+import { Box, Center, Heading, Spinner, Text } from '@chakra-ui/react';
 import { useContextSelector } from 'use-context-selector';
-import { StatusCodes } from 'http-status-codes';
 
 import { pageContext } from '../state';
+import { ErrorMsgWithTryAgainBtn } from './ErrorMsgWithTryAgain';
 
 export function About() {
   const { stockDetails, isLoading, isError, error, refetch } =
@@ -14,43 +14,27 @@ export function About() {
       refetch: state?.stockDetailsState.refetch!,
     }));
 
-  const errorMsg = error?.response?.data.error || error?.response?.data.message;
-
   function Content() {
-    if (isLoading)
+    if (isLoading) {
       return (
         <Center my="10">
           <Spinner />
         </Center>
       );
+    }
 
     if (isError) {
-      const ErrorMsg = () => (
-        <Text color="red" fontSize="sm">
-          {errorMsg}
-        </Text>
+      const errorMsg =
+        error?.response?.data.error || error?.response?.data.message;
+      const errorStatusCode = error?.response?.status;
+
+      return (
+        <ErrorMsgWithTryAgainBtn
+          msg={errorMsg}
+          code={errorStatusCode}
+          refetch={refetch}
+        />
       );
-
-      if (error?.response?.status === StatusCodes.TOO_MANY_REQUESTS) {
-        return (
-          <>
-            <ErrorMsg />
-
-            <Button
-              w="32"
-              size="sm"
-              mt="3"
-              colorScheme="gray"
-              color="black"
-              onClick={() => refetch()}
-            >
-              Try again
-            </Button>
-          </>
-        );
-      }
-
-      return <ErrorMsg />;
     }
 
     return (

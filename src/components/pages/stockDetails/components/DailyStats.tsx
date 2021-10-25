@@ -1,4 +1,3 @@
-import { StatusCodes } from 'http-status-codes';
 import {
   Text,
   Heading,
@@ -10,11 +9,11 @@ import {
   Center,
   Spinner,
   HStack,
-  Button,
 } from '@chakra-ui/react';
 import { useContextSelector } from 'use-context-selector';
 
 import { pageContext, State } from '../state';
+import { ErrorMsgWithTryAgainBtn } from './ErrorMsgWithTryAgain';
 
 export function DailyStats() {
   const {
@@ -33,14 +32,24 @@ export function DailyStats() {
     refetch: state?.dailyStatsState.refetch!,
   }));
 
-  const errorMsg = error?.response?.data.error || error?.response?.data.message;
-  const errorStatusCode = error?.response?.status;
-
   function Content() {
-    if (isError)
-      return <Error msg={errorMsg} code={errorStatusCode} refetch={refetch} />;
+    if (isError) {
+      const errorMsg =
+        error?.response?.data.error || error?.response?.data.message;
+      const errorStatusCode = error?.response?.status;
 
-    if (isFetching) return <Loading />;
+      return (
+        <ErrorMsgWithTryAgainBtn
+          msg={errorMsg}
+          code={errorStatusCode}
+          refetch={refetch}
+        />
+      );
+    }
+
+    if (isFetching) {
+      return <Loading />;
+    }
 
     return <Stats dailyStats={dailyStats} />;
   }
@@ -70,44 +79,6 @@ function Loading() {
       <Spinner />
     </Center>
   );
-}
-
-function Error({
-  msg,
-  code,
-  refetch,
-}: {
-  msg?: string;
-  code?: number;
-  refetch: () => void;
-}) {
-  const ErrorMsg = () => (
-    <Text color="red" fontSize="sm">
-      {msg}
-    </Text>
-  );
-
-  if (code === StatusCodes.TOO_MANY_REQUESTS) {
-    return (
-      <>
-        <ErrorMsg />
-
-        <Button
-          w="32"
-          size="sm"
-          mt="3"
-          colorScheme="gray"
-          color="black"
-          onClick={() => refetch()}
-          data-testid="refetch-daily-stats"
-        >
-          Try again
-        </Button>
-      </>
-    );
-  }
-
-  return <ErrorMsg />;
 }
 
 function Stats({

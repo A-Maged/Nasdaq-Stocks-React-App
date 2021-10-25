@@ -14,9 +14,7 @@ export function StockDetails() {
         containerProps={{ pt: '16', pb: '6', maxW: '2xl' }}
       >
         <Header />
-
         <DailyStats />
-
         <About />
       </MainLayout>
     </PageStateProvider>
