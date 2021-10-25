@@ -2,7 +2,7 @@ import { Button, Spinner, Center, SimpleGrid } from '@chakra-ui/react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useContextSelector } from 'use-context-selector';
 
-import { MemoizedStockListItem } from './StocksListItem';
+import { StockListItem } from './StocksListItem';
 import { pageContext } from '../state';
 
 export function StocksList() {
@@ -24,7 +24,7 @@ export function StocksList() {
         loader={
           isFetching ? (
             <Center my="10">
-              <Spinner />
+              <Spinner data-testid="list-spinner" />
             </Center>
           ) : null
         }
@@ -32,7 +32,7 @@ export function StocksList() {
         <SimpleGrid columns={[1, 2, 3, 4]} spacingX={10} spacingY={3}>
           {stocks?.pages.map((page) =>
             page.results.map((stock) => (
-              <MemoizedStockListItem key={stock.ticker} stock={stock} />
+              <StockListItem key={stock.ticker} stock={stock} />
             ))
           )}
         </SimpleGrid>

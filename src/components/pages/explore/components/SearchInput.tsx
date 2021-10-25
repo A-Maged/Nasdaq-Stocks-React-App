@@ -21,6 +21,7 @@ export function SearchInput() {
           setSearchTerm(e.target.value);
         }}
         placeholder="Search for stocks"
+        name="search-stocks"
         variant="filled"
         color="black"
         bg="white"

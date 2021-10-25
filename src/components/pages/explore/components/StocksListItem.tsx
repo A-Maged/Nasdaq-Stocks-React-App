@@ -6,14 +6,19 @@ import { Stock } from 'api';
 
 type Props = { stock: Stock };
 
-function StockListItem({ stock }: Props) {
+export const StockListItem = React.memo(function StockListItem({
+  stock,
+}: Props) {
   return (
     <Box w="full" p="2" mx="auto" color="white" borderRadius="md">
       <Text fontSize="lg" fontWeight="bold">
-        <Link to={`/stock-details/${stock.ticker}`}>{stock.ticker}</Link>
+        <Link to={`/stock-details/${stock.ticker}`} data-testid="stock-ticker">
+          {stock.ticker}
+        </Link>
       </Text>
 
       <Text
+        data-testid="stock-company-name"
         noOfLines={1}
         cursor="default"
         color="gray.100"
@@ -24,10 +29,9 @@ function StockListItem({ stock }: Props) {
       </Text>
     </Box>
   );
-}
+},
+PropsAreEqual);
 
 function PropsAreEqual(prevStock: Props, nextStock: Props) {
   return prevStock.stock === nextStock.stock;
 }
-
-export const MemoizedStockListItem = React.memo(StockListItem, PropsAreEqual);

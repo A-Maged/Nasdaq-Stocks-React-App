@@ -6,8 +6,13 @@ const folders = fs
   .map((dirent) => dirent.name);
 
 module.exports = {
-  extends: ['react-app', 'react-app/jest', 'prettier'],
-  plugins: ['prettier', 'react', 'import'],
+  extends: [
+    'react-app',
+    'react-app/jest',
+    'prettier',
+    'plugin:cypress/recommended',
+  ],
+  plugins: ['prettier', 'cypress', 'react', 'import'],
   rules: {
     'prettier/prettier': [
       'error',
