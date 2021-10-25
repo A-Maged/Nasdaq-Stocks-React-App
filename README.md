@@ -4,6 +4,12 @@ A stock market web app that shows all stocks listed in Nasdaq exchange with thei
 
 This was a take home assignment i did for an interview with [Thndr](https://thndr.app).
 
+## Contents
+
+- [Features](#features)
+- [Scripts](#scripts)
+- [Tech Stack](#tech-stack)
+
 ## Features
 
 - Browse stocks listed in Nasdaq exchange with their ticker and full name.
@@ -25,25 +31,25 @@ Start application
   npm start
 ```
 
-run tests
+Run tests
 
 ```bash
   npm run test
 ```
 
-watch tests
+Watch tests
 
 ```bash
   npm run test:watch
 ```
 
-run cypress
+Run cypress
 
 ```bash
   npm run cypress:open
 ```
 
-fix linting errors
+Fix linting errors
 
 ```bash
   npm run lint:fix
