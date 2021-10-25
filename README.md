@@ -1,4 +1,4 @@
-# Nasdaq (Thndr Task)
+# Nasdaq Stocks
 
 A stock market web app that shows all stocks listed in Nasdaq exchange with their ticker, name, and details using [Polygon](https://polygon.io/docs) API.
 
