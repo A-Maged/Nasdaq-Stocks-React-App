@@ -80,7 +80,12 @@ export class PolygonStockRepo implements StockRepo {
 
     return httpClientV1
       .get<PolygonStockDailyStatsApiResponse>(
-        `open-close/${query.ticker}/${dateFormatted}`
+        `open-close/${query.ticker}/${dateFormatted}`,
+        {
+          params: {
+            adjusted: true,
+          },
+        }
       )
       .then(({ data }) => ({
         open: data.open,
