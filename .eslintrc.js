@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const folders = fs
+const topLevelFoldersInSrc = fs
   .readdirSync('src', { withFileTypes: true })
   .filter((dirent) => dirent.isDirectory())
   .map((dirent) => dirent.name);
@@ -36,16 +36,16 @@ module.exports = {
         pathGroups: [
           {
             /* group top-level folders */
-            pattern: `@(${folders.join('|')})`,
+            pattern: `@(${topLevelFoldersInSrc.join('|')})`,
             group: 'internal',
           },
           /* group sub-folders */
-          ...folders.map((folder) => ({
+          ...topLevelFoldersInSrc.map((folder) => ({
             pattern: `${folder}/**`,
             group: 'internal',
           })),
         ],
-        pathGroupsExcludedImportTypes: folders,
+        pathGroupsExcludedImportTypes: topLevelFoldersInSrc,
       },
     ],
   },
