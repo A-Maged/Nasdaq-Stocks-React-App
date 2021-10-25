@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react';
 import { useContextSelector } from 'use-context-selector';
 
-import { pageContext } from '../state';
+import { pageContext, State } from '../state';
 
 export function DailyStats() {
   const {
@@ -34,82 +34,15 @@ export function DailyStats() {
   }));
 
   const errorMsg = error?.response?.data.error || error?.response?.data.message;
+  const errorStatusCode = error?.response?.status;
 
   function Content() {
-    if (isError) {
-      const ErrorMsg = () => (
-        <Text color="red" fontSize="sm">
-          {errorMsg}
-        </Text>
-      );
+    if (isError)
+      return <Error msg={errorMsg} code={errorStatusCode} refetch={refetch} />;
 
-      if (error?.response?.status === StatusCodes.TOO_MANY_REQUESTS) {
-        return (
-          <>
-            <ErrorMsg />
+    if (isFetching) return <Loading />;
 
-            <Button
-              w="32"
-              size="sm"
-              mt="3"
-              colorScheme="gray"
-              color="black"
-              onClick={() => refetch()}
-            >
-              Try again
-            </Button>
-          </>
-        );
-      }
-
-      return <ErrorMsg />;
-    }
-
-    if (isFetching)
-      return (
-        <Center my="10">
-          <Spinner />
-        </Center>
-      );
-
-    return (
-      <SimpleGrid columns={[2, 3, 4, 5]}>
-        {dailyStats?.open && (
-          <Stat>
-            <StatLabel>Open</StatLabel>
-            <StatNumber fontSize="xl">{dailyStats?.open}</StatNumber>
-          </Stat>
-        )}
-
-        {dailyStats?.close && (
-          <Stat>
-            <StatLabel>Close</StatLabel>
-            <StatNumber fontSize="xl">{dailyStats?.close}</StatNumber>
-          </Stat>
-        )}
-
-        {dailyStats?.volume && (
-          <Stat>
-            <StatLabel>Volume</StatLabel>
-            <StatNumber fontSize="xl">{dailyStats?.volume}</StatNumber>
-          </Stat>
-        )}
-
-        {dailyStats?.high && (
-          <Stat>
-            <StatLabel>High</StatLabel>
-            <StatNumber fontSize="xl">{dailyStats?.high}</StatNumber>
-          </Stat>
-        )}
-
-        {dailyStats?.low && (
-          <Stat>
-            <StatLabel>Low</StatLabel>
-            <StatNumber fontSize="xl">{dailyStats?.low}</StatNumber>
-          </Stat>
-        )}
-      </SimpleGrid>
-    );
+    return <Stats dailyStats={dailyStats} />;
   }
 
   return (
@@ -128,5 +61,96 @@ export function DailyStats() {
 
       <Content />
     </Box>
+  );
+}
+
+function Loading() {
+  return (
+    <Center my="10">
+      <Spinner />
+    </Center>
+  );
+}
+
+function Error({
+  msg,
+  code,
+  refetch,
+}: {
+  msg?: string;
+  code?: number;
+  refetch: () => void;
+}) {
+  const ErrorMsg = () => (
+    <Text color="red" fontSize="sm">
+      {msg}
+    </Text>
+  );
+
+  if (code === StatusCodes.TOO_MANY_REQUESTS) {
+    return (
+      <>
+        <ErrorMsg />
+
+        <Button
+          w="32"
+          size="sm"
+          mt="3"
+          colorScheme="gray"
+          color="black"
+          onClick={() => refetch()}
+          data-testid="refetch-daily-stats"
+        >
+          Try again
+        </Button>
+      </>
+    );
+  }
+
+  return <ErrorMsg />;
+}
+
+function Stats({
+  dailyStats,
+}: {
+  dailyStats: State['dailyStatsState']['data'];
+}) {
+  return (
+    <SimpleGrid columns={[2, 3, 4, 5]}>
+      {dailyStats?.open && (
+        <Stat>
+          <StatLabel>Open</StatLabel>
+          <StatNumber fontSize="xl">{dailyStats?.open}</StatNumber>
+        </Stat>
+      )}
+
+      {dailyStats?.close && (
+        <Stat>
+          <StatLabel>Close</StatLabel>
+          <StatNumber fontSize="xl">{dailyStats?.close}</StatNumber>
+        </Stat>
+      )}
+
+      {dailyStats?.volume && (
+        <Stat>
+          <StatLabel>Volume</StatLabel>
+          <StatNumber fontSize="xl">{dailyStats?.volume}</StatNumber>
+        </Stat>
+      )}
+
+      {dailyStats?.high && (
+        <Stat>
+          <StatLabel>High</StatLabel>
+          <StatNumber fontSize="xl">{dailyStats?.high}</StatNumber>
+        </Stat>
+      )}
+
+      {dailyStats?.low && (
+        <Stat>
+          <StatLabel>Low</StatLabel>
+          <StatNumber fontSize="xl">{dailyStats?.low}</StatNumber>
+        </Stat>
+      )}
+    </SimpleGrid>
   );
 }

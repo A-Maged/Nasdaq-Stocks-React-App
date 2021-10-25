@@ -13,7 +13,7 @@ import {
   StockDetailsApiResponse,
 } from 'api';
 
-type State = {
+export type State = {
   ticker: string;
   stockDetailsState: UseQueryResult<
     StockDetailsApiResponse,
