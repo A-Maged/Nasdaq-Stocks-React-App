@@ -1,15 +1,10 @@
 import { useQuery } from 'react-query';
-import { AxiosError } from 'axios';
 
-import {
-  stocksRepoSingleton,
-  StockApiError,
-  StockDetailsApiResponse,
-  StockDetailsQuery,
-} from 'api';
+import { stocksRepoSingleton } from 'api';
+import { StockDetails } from 'types/StockRepo';
 
-export function useGetStockDetails(query: StockDetailsQuery) {
-  return useQuery<StockDetailsApiResponse, AxiosError<StockApiError>>(
+export function useGetStockDetails(query: StockDetails.Query) {
+  return useQuery<StockDetails.ApiResponse, StockDetails.ApiError>(
     ['Stock-details', query.ticker],
     () => stocksRepoSingleton.details(query),
     {

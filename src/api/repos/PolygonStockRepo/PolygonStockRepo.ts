@@ -1,32 +1,28 @@
 import { format, subDays } from 'date-fns';
 
 import { httpClientV1, httpClientV3 } from 'api';
-
 import {
-  StockListQuery,
-  StockDetailsQuery,
-  StockSearchQuery,
   StockRepo,
-  StockDailyStatsQuery,
-} from '../baseStockRepo';
-import {
-  PolygonStockDailyStatsApiResponse,
-  PolygonStockDetailsApiResponse,
-  PolygonStocksApiResponse,
-} from './types';
+  SearchStocks,
+  ListStocks,
+  StockDailyStats,
+  StockDetails,
+} from 'types/StockRepo';
+
+import * as Polygon from './types';
 
 export class PolygonStockRepo implements StockRepo {
-  search = ({ url: nextPageUrl, ...query }: StockSearchQuery) => {
+  search = ({ url: nextPageUrl, ...query }: SearchStocks.Query) => {
     const url = nextPageUrl ?? '/reference/tickers';
 
     return httpClientV3
-      .get<PolygonStocksApiResponse>(url, {
+      .get<Polygon.StocksApiResponse>(url, {
         params: {
           market: 'stocks',
           active: true,
           sort: 'ticker',
           order: 'asc',
-          limit: 10,
+          limit: 40,
           ...query,
         },
       })
@@ -38,9 +34,9 @@ export class PolygonStockRepo implements StockRepo {
       });
   };
 
-  details = ({ ticker }: StockDetailsQuery) => {
+  details = ({ ticker }: StockDetails.Query) => {
     return httpClientV1
-      .get<PolygonStockDetailsApiResponse>(`/meta/symbols/${ticker}/company`)
+      .get<Polygon.StockDetailsApiResponse>(`/meta/symbols/${ticker}/company`)
       .then(({ data }) => ({
         name: data.name,
         symbol: data.symbol,
@@ -51,17 +47,17 @@ export class PolygonStockRepo implements StockRepo {
       }));
   };
 
-  list = ({ url: nextPageUrl, ...query }: StockListQuery) => {
+  list = ({ url: nextPageUrl, ...query }: ListStocks.Query = {}) => {
     const url = nextPageUrl ?? '/reference/tickers';
 
     return httpClientV3
-      .get<PolygonStocksApiResponse>(url, {
+      .get<Polygon.StocksApiResponse>(url, {
         params: {
           market: 'stocks',
           active: true,
           sort: 'ticker',
           order: 'asc',
-          limit: 10,
+          limit: 40,
           ...query,
         },
       })
@@ -73,13 +69,13 @@ export class PolygonStockRepo implements StockRepo {
       });
   };
 
-  dailyStats = (query: StockDailyStatsQuery) => {
+  dailyStats = (query: StockDailyStats.Query) => {
     const yesterday = subDays(new Date(), 1);
     const date = query.date || yesterday;
     const dateFormatted = format(date, 'yyyy-MM-dd');
 
     return httpClientV1
-      .get<PolygonStockDailyStatsApiResponse>(
+      .get<Polygon.StockDailyStatsApiResponse>(
         `open-close/${query.ticker}/${dateFormatted}`,
         {
           params: {

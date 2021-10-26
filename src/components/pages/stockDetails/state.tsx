@@ -2,26 +2,21 @@ import { ReactNode, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { createContext } from 'use-context-selector';
 import { UseQueryResult } from 'react-query';
-import { AxiosError } from 'axios';
 import { subDays } from 'date-fns';
 
 import { useGetStockDailyStats } from 'services/stocks/useGetStockDailyStats';
 import { useGetStockDetails } from 'services/stocks/useGetStockDetails';
-import {
-  StockApiError,
-  StockDailyStatsApiResponse,
-  StockDetailsApiResponse,
-} from 'api';
+import { StockDailyStats, StockDetails } from 'types/StockRepo';
 
 export type State = {
   ticker: string;
   stockDetailsState: UseQueryResult<
-    StockDetailsApiResponse,
-    AxiosError<StockApiError>
+    StockDetails.ApiResponse,
+    StockDetails.ApiError
   >;
   dailyStatsState: UseQueryResult<
-    StockDailyStatsApiResponse,
-    AxiosError<StockApiError>
+    StockDailyStats.ApiResponse,
+    StockDailyStats.ApiError
   >;
   isShowingEarlierStatsDate: boolean;
 };

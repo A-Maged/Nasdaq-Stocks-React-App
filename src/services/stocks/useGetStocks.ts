@@ -1,19 +1,14 @@
 import { useInfiniteQuery } from 'react-query';
-import { AxiosError } from 'axios';
 import { QueryFunction, QueryKey } from 'react-query';
 import { useToast } from '@chakra-ui/react';
 
-import {
-  stocksRepoSingleton,
-  StockApiError,
-  StockListApiResponse,
-  StockListQuery,
-} from 'api';
+import { stocksRepoSingleton } from 'api';
+import { ListStocks } from 'types/StockRepo';
 
-export function useGetStocks(query: Omit<StockListQuery, 'url'>) {
+export function useGetStocks(query: Omit<ListStocks.Query, 'url'>) {
   const toast = useToast();
 
-  return useInfiniteQuery<StockListApiResponse, AxiosError<StockApiError>>(
+  return useInfiniteQuery<ListStocks.ApiResponse, ListStocks.ApiError>(
     'stocks',
     makeFetchStocks(query),
     {
@@ -37,5 +32,5 @@ const makeFetchStocks: MakeFetchStocks =
   };
 
 type MakeFetchStocks = (
-  query: Omit<StockListQuery, 'url'>
-) => QueryFunction<StockListApiResponse, QueryKey>;
+  query: Omit<ListStocks.Query, 'url'>
+) => QueryFunction<ListStocks.ApiResponse, QueryKey>;

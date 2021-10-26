@@ -1,18 +1,17 @@
 import { ReactNode, useEffect, useState } from 'react';
 import { createContext } from 'use-context-selector';
 import { UseInfiniteQueryResult } from 'react-query';
-import { AxiosError } from 'axios';
 
 import { useGetStocks } from 'services/stocks/useGetStocks';
 import { useSearchStocks } from 'services/stocks/useSearchStocks';
 import { useDebounce } from 'hooks/useDebounce';
-import { StockApiError, StockListApiResponse } from 'api';
+import { ListStocks } from 'types/StockRepo';
 
 type State = {
   stocksCount: number | undefined;
   queryState: UseInfiniteQueryResult<
-    StockListApiResponse,
-    AxiosError<StockApiError, any>
+    ListStocks.ApiResponse,
+    ListStocks.ApiError
   >;
   setSearchTerm: React.Dispatch<string>;
 };

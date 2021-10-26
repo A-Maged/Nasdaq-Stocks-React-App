@@ -1,15 +1,10 @@
 import { useQuery } from 'react-query';
-import { AxiosError } from 'axios';
 
-import {
-  StockApiError,
-  StockDailyStatsApiResponse,
-  StockDailyStatsQuery,
-  stocksRepoSingleton,
-} from 'api';
+import { stocksRepoSingleton } from 'api';
+import { StockDailyStats } from 'types/StockRepo';
 
-export function useGetStockDailyStats(query: StockDailyStatsQuery) {
-  return useQuery<StockDailyStatsApiResponse, AxiosError<StockApiError>>(
+export function useGetStockDailyStats(query: StockDailyStats.Query) {
+  return useQuery<StockDailyStats.ApiResponse, StockDailyStats.ApiError>(
     ['Stock-daily', query.ticker],
     makeFetch(query),
     {
@@ -18,5 +13,5 @@ export function useGetStockDailyStats(query: StockDailyStatsQuery) {
   );
 }
 
-const makeFetch = (query: StockDailyStatsQuery) => () =>
+const makeFetch = (query: StockDailyStats.Query) => () =>
   stocksRepoSingleton.dailyStats(query);
