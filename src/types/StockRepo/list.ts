@@ -2,7 +2,11 @@ import { AxiosError } from 'axios';
 
 export type listStocks = (query?: Query) => Promise<ApiResponse>;
 
-export type Query = { url?: string; limit?: number; market?: string };
+export type Query = {
+  url?: string | null;
+  limit?: number | null;
+  market?: string | null;
+};
 
 export type ApiResponse = {
   results: Stock[];

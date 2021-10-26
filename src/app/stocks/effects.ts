@@ -1,4 +1,4 @@
-import { PolygonStockRepo } from 'api/repos';
+import { PolygonStockRepo } from 'api';
 import { StockRepo } from 'types/StockRepo';
 
 export const getRepo = (function () {

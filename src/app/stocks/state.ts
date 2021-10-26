@@ -1,25 +1,23 @@
 import { ListStocks, StockDailyStats, StockDetails } from 'types/StockRepo';
 
 type State = {
-  list: Query<ListStocks.ApiError> & {
-    data: ListStocks.Stock[];
+  list: Query<ListStocks.Stock[], ListStocks.ApiError> & {
     nextUrl: string | null;
   };
-  search: Query<ListStocks.ApiError> & {
+  search: Query<ListStocks.Stock[], ListStocks.ApiError> & {
     searchTerm: string;
-    data: ListStocks.Stock[];
   };
   currentStock: {
-    details: Query<StockDetails.ApiError> & {
-      data: StockDetails.ApiResponse | null;
-    };
-    dailyStats: Query<StockDailyStats.ApiError> & {
-      data: StockDailyStats.ApiResponse | null;
-    };
+    details: Query<StockDetails.ApiResponse | null, StockDetails.ApiError>;
+    dailyStats: Query<
+      StockDailyStats.ApiResponse | null,
+      StockDailyStats.ApiError
+    >;
   };
 };
 
-type Query<Error = any> = {
+type Query<Data = any, Error = any> = {
+  data: Data;
   isLoading: boolean;
   isError: boolean;
   error: Error | null;

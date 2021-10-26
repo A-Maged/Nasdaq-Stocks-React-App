@@ -28,13 +28,16 @@ export function StocksList() {
 
   function fetchNextPage() {
     if (!searchState.searchTerm) {
-      getStocks({ url: listState.nextUrl || undefined });
+      refetch();
     }
   }
 
-  useEffect(() => {
-    getStocks({ url: listState.nextUrl || undefined });
+  function refetch() {
+    getStocks({ url: listState.nextUrl });
+  }
 
+  useEffect(() => {
+    refetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -70,17 +73,15 @@ export function StocksList() {
         </SimpleGrid>
       </InfiniteScroll>
 
-      {state.isError && (
+      {state.isError && !state.isLoading && (
         <Button
-          disabled={state.isLoading}
-          isLoading={state.isLoading}
+          onClick={() => refetch()}
           w="48"
           mx="auto"
           mt="10"
           mb="8"
           colorScheme="gray"
           color="black"
-          onClick={() => fetchNextPage()}
         >
           Try again
         </Button>
