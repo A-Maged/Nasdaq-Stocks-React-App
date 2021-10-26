@@ -17,16 +17,22 @@ export const getStocks = async (
   try {
     const response = await effects.stocks.getRepo().list(query);
 
-    state.stocks.list.data = [...state.stocks.list.data, ...response.results];
-    state.stocks.list.nextUrl = response.next_url;
-    state.stocks.list.isError = false;
-    state.stocks.list.error = null;
+    state.stocks.list = {
+      data: [...state.stocks.list.data, ...response.results],
+      nextUrl: response.next_url,
+      isError: false,
+      error: null,
+      isLoading: false,
+    };
   } catch (error) {
-    state.stocks.list.isError = true;
-    state.stocks.list.error = error as ListStocks.ApiError;
+    state.stocks.list = {
+      ...state.stocks.list,
+      nextUrl: null,
+      isError: true,
+      error: error as ListStocks.ApiError,
+      isLoading: false,
+    };
   }
-
-  state.stocks.list.isLoading = false;
 };
 
 export const searchStocks = async (
@@ -44,12 +50,22 @@ export const searchStocks = async (
   try {
     const response = await effects.stocks.getRepo().search(query);
 
-    state.stocks.search.data = [...response.results];
-    state.stocks.search.isError = false;
-    state.stocks.search.error = null;
+    state.stocks.search = {
+      ...state.stocks.search,
+      data: [...response.results],
+      isError: false,
+      error: null,
+      isLoading: false,
+      searchTerm: query.search,
+    };
   } catch (error) {
-    state.stocks.search.isError = true;
-    state.stocks.search.error = error as ListStocks.ApiError;
+    state.stocks.search = {
+      ...state.stocks.search,
+      isError: true,
+      error: error as ListStocks.ApiError,
+      isLoading: false,
+      searchTerm: query.search,
+    };
   }
 
   state.stocks.search.isLoading = false;
@@ -72,7 +88,7 @@ export const getStockDetails = async (
     };
   } catch (error) {
     state.stocks.currentStock.details = {
-      data: null,
+      ...state.stocks.currentStock.details,
       isError: true,
       error: error as StockDetails.ApiError,
       isLoading: false,
@@ -103,8 +119,8 @@ export const getStockDailyStats = async (
     };
   } catch (error) {
     state.stocks.currentStock.dailyStats = {
+      ...state.stocks.currentStock.dailyStats,
       isLoading: false,
-      data: null,
       isError: true,
       error: error as StockDailyStats.ApiError,
     };
