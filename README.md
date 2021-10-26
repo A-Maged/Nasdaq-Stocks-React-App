@@ -4,6 +4,13 @@ A stock market web app that shows all stocks listed in Nasdaq exchange with thei
 
 This was a take home assignment i did for an interview with [Thndr](https://thndr.app).
 
+**Git branches:**
+
+There are two implementations for server-state management and caching
+
+- [Main branch](https://github.com/A-Maged/Nasdaq-Stocks) uses "React-Query"
+- [Overmind branch](https://github.com/A-Maged/Nasdaq-Stocks/tree/overmind) uses "Overmind"
+
 ## Contents
 
 - [Features](#features)
