@@ -8,6 +8,16 @@ import {
 
 import { INITIAL_STATE } from './state';
 
+/* 
+  Downsides:
+    - managing query state(loading, error, etc) manually, which is error prone and could lead to bugs.
+*/
+
+/* initialize effects, so no state would leak into tests */
+export const onInitializeOvermind = async ({ effects }: Context) => {
+  effects.stocks.init();
+};
+
 export const getStocks = async (
   { effects, state }: Context,
   query?: ListStocks.Query
@@ -15,7 +25,7 @@ export const getStocks = async (
   state.stocks.list.isLoading = true;
 
   try {
-    const response = await effects.stocks.getRepo().list(query);
+    const response = await effects.stocks.repo.list(query);
 
     state.stocks.list = {
       data: [...state.stocks.list.data, ...response.results],
@@ -48,7 +58,7 @@ export const searchStocks = async (
   state.stocks.search.isLoading = true;
 
   try {
-    const response = await effects.stocks.getRepo().search(query);
+    const response = await effects.stocks.repo.search(query);
 
     state.stocks.search = {
       ...state.stocks.search,
@@ -78,7 +88,7 @@ export const getStockDetails = async (
   state.stocks.currentStock.details.isLoading = true;
 
   try {
-    const response = await effects.stocks.getRepo().details(query);
+    const response = await effects.stocks.repo.details(query);
 
     state.stocks.currentStock.details = {
       data: { ...response },
@@ -109,7 +119,7 @@ export const getStockDailyStats = async (
   state.stocks.currentStock.dailyStats.isLoading = true;
 
   try {
-    const response = await effects.stocks.getRepo().dailyStats(query);
+    const response = await effects.stocks.repo.dailyStats(query);
 
     state.stocks.currentStock.dailyStats = {
       isLoading: false,

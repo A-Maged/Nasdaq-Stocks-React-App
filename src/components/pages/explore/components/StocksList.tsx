@@ -26,16 +26,6 @@ export function StocksList() {
 
   const state = searchState.searchTerm ? searchState : listState;
 
-  function fetchNextPage() {
-    if (!searchState.searchTerm) {
-      refetch();
-    }
-  }
-
-  function refetch() {
-    getStocks({ url: listState.nextUrl });
-  }
-
   useEffect(() => {
     refetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -51,6 +41,16 @@ export function StocksList() {
       });
     }
   }, [state.error, toast]);
+
+  function fetchNextPage() {
+    if (!searchState.searchTerm) {
+      refetch();
+    }
+  }
+
+  function refetch() {
+    getStocks({ url: listState.nextUrl });
+  }
 
   return (
     <>

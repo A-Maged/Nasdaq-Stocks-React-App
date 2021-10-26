@@ -1,14 +1,8 @@
 import { PolygonStockRepo } from 'api';
 import { StockRepo } from 'types/StockRepo';
 
-export const getRepo = (function () {
-  let repoInstance: StockRepo;
+export let repo: StockRepo;
 
-  return () => {
-    if (!repoInstance) {
-      repoInstance = new PolygonStockRepo();
-    }
-
-    return repoInstance;
-  };
-})();
+export function init() {
+  repo = new PolygonStockRepo();
+}
