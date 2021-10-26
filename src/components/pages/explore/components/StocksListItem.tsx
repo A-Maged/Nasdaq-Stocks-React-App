@@ -33,5 +33,5 @@ export const StockListItem = React.memo(function StockListItem({
 PropsAreEqual);
 
 function PropsAreEqual(prevStock: Props, nextStock: Props) {
-  return prevStock.stock === nextStock.stock;
+  return prevStock.stock.ticker === nextStock.stock.ticker;
 }
