@@ -1,18 +1,18 @@
-export type PolygonStocksApiResponse = {
-  results: PolygonStock[];
+export type StocksApiResponse = {
+  results: Stock[];
   status: string;
   request_id: string;
   count: number;
   next_url: string;
 };
 
-export type PolygonStocksApiError = {
+export type StocksApiError = {
   status: 'ERROR';
   request_id: string;
   error: string;
 };
 
-export type PolygonStock = {
+export type Stock = {
   ticker: string;
   name: string;
   market: string;
@@ -27,7 +27,7 @@ export type PolygonStock = {
   last_updated_utc: string;
 };
 
-export type PolygonStockDetailsApiResponse = {
+export type StockDetailsApiResponse = {
   logo: string;
   listdate: string;
   cik: string;
@@ -57,7 +57,7 @@ export type PolygonStockDetailsApiResponse = {
   active: boolean;
 };
 
-export type PolygonStockDailyStatsApiResponse = {
+export type StockDailyStatsApiResponse = {
   status: string;
   from: string;
   symbol: string;
