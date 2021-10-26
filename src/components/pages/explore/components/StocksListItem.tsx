@@ -2,9 +2,9 @@ import { Text, Box } from '@chakra-ui/react';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { Stock } from 'api';
+import { ListStocks } from 'types/StockRepo';
 
-type Props = { stock: Stock };
+type Props = { stock: ListStocks.Stock };
 
 export const StockListItem = React.memo(function StockListItem({
   stock,

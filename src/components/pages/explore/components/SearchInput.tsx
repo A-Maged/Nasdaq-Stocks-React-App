@@ -1,14 +1,23 @@
 import { InputGroup, InputLeftElement, Input } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
-import { useContextSelector } from 'use-context-selector';
+import { useEffect, useState } from 'react';
 
-import { pageContext } from '../state';
+import { useActions } from 'app';
+import { useDebounce } from 'hooks/useDebounce';
 
 export function SearchInput() {
-  const setSearchTerm = useContextSelector(
-    pageContext,
-    (state) => state?.setSearchTerm!
-  );
+  const [searchTerm, setSearchTerm] = useState('');
+  const debouncedSearchTerm = useDebounce<string>(searchTerm, 500);
+
+  const {
+    stocks: { searchStocks },
+  } = useActions();
+
+  useEffect(() => {
+    searchStocks({ search: debouncedSearchTerm });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedSearchTerm]);
 
   return (
     <InputGroup mb="14" maxW="md" mx="auto">

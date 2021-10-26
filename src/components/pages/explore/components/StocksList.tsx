@@ -1,28 +1,62 @@
-import { Button, Spinner, Center, SimpleGrid } from '@chakra-ui/react';
+import {
+  Button,
+  Spinner,
+  Center,
+  SimpleGrid,
+  useToast,
+} from '@chakra-ui/react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { useContextSelector } from 'use-context-selector';
+import { useEffect } from 'react';
+
+import { useActions, useAppState } from 'app';
 
 import { StockListItem } from './StocksListItem';
-import { pageContext } from '../state';
 
 export function StocksList() {
-  const { stocksCount, stocks, fetchNextPage, isFetching, isError } =
-    useContextSelector(pageContext, (state) => ({
-      stocksCount: state?.stocksCount || 0,
-      stocks: state?.queryState.data!,
-      fetchNextPage: state?.queryState.fetchNextPage!,
-      isFetching: state?.queryState.isFetching!,
-      isError: state?.queryState.isError!,
-    }));
+  const toast = useToast();
+
+  const {
+    stocks: { getStocks },
+  } = useActions();
+
+  const { listState, searchState } = useAppState((state) => ({
+    listState: state.stocks.list,
+    searchState: state.stocks.search,
+  }));
+
+  const state = searchState.searchTerm ? searchState : listState;
+
+  function fetchNextPage() {
+    if (!searchState.searchTerm) {
+      getStocks({ url: listState.nextUrl || undefined });
+    }
+  }
+
+  useEffect(() => {
+    getStocks({ url: listState.nextUrl || undefined });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (state.error) {
+      toast({
+        title: state.error?.response?.data.error,
+        status: 'warning',
+        isClosable: true,
+        position: 'bottom-right',
+      });
+    }
+  }, [state.error, toast]);
 
   return (
     <>
       <InfiniteScroll
-        dataLength={stocksCount}
+        dataLength={state.data.length}
         next={fetchNextPage}
         hasMore={true}
         loader={
-          isFetching ? (
+          state.isLoading ? (
             <Center my="10">
               <Spinner data-testid="list-spinner" />
             </Center>
@@ -30,18 +64,16 @@ export function StocksList() {
         }
       >
         <SimpleGrid columns={[1, 2, 3, 4]} spacingX={10} spacingY={3}>
-          {stocks?.pages.map((page) =>
-            page.results.map((stock) => (
-              <StockListItem key={stock.ticker} stock={stock} />
-            ))
-          )}
+          {state.data.map((stock) => (
+            <StockListItem key={stock.ticker} stock={stock} />
+          ))}
         </SimpleGrid>
       </InfiniteScroll>
 
-      {isError && (
+      {state.isError && (
         <Button
-          disabled={isFetching}
-          isLoading={isFetching}
+          disabled={state.isLoading}
+          isLoading={state.isLoading}
           w="48"
           mx="auto"
           mt="10"

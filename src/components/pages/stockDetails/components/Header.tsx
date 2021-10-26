@@ -1,23 +1,21 @@
 import { HStack, Link, Text, VStack } from '@chakra-ui/react';
-import { useContextSelector } from 'use-context-selector';
+import { useParams } from 'react-router-dom';
 
 import { ImageWithAvatarFallback } from 'components/shared/ImageWithFallback';
-
-import { pageContext } from '../state';
+import { useAppState } from 'app';
 
 export function Header() {
-  const { stockDetails, ticker } = useContextSelector(pageContext, (state) => ({
-    ticker: state?.ticker,
-    stockDetails: state?.stockDetailsState.data,
-  }));
+  const { ticker } = useParams<{ ticker: string }>();
+  const { details } = useAppState((state) => state.stocks.currentStock);
 
-  const urlPrefix = String(stockDetails?.url).startsWith('http') ? '' : '//';
+  const { name, logo, url } = details.data || {};
+  const urlPrefix = String(url).startsWith('http') ? '' : '//';
 
   return (
     <HStack spacing="6">
       <ImageWithAvatarFallback
-        src={stockDetails?.logo}
-        name={stockDetails?.name}
+        src={logo}
+        name={name}
         imageProps={{
           w: '28',
         }}
@@ -25,11 +23,10 @@ export function Header() {
 
       <VStack spacing="1" alignItems="flex-start">
         <Text fontWeight="bold">{ticker}</Text>
-        <Text>{stockDetails?.name}</Text>
-
-        {stockDetails?.url && (
+        <Text>{name}</Text>
+        {url && (
           <Link
-            href={urlPrefix + stockDetails.url}
+            href={urlPrefix + url}
             isExternal
             color="blue"
             fontWeight="bold"
