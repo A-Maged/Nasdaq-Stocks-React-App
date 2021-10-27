@@ -65,6 +65,9 @@ describe('/explore', () => {
 
     cy.wait('@searchTickers');
 
-    cy.get(selectors.ticker).first().contains(ticker);
+    cy.get(selectors.ticker)
+      .first()
+      .contains(ticker)
+      .should('have.attr', 'href', `/stock-details/${ticker}`);
   });
 });
