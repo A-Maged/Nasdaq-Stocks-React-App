@@ -8,8 +8,8 @@ This was a take home assignment i did for an interview with [Thndr](https://thnd
 
 There are two implementations for server-state management and caching
 
-- [Main branch](https://github.com/A-Maged/Nasdaq-Stocks) uses "React-Query"
-- [Overmind branch](https://github.com/A-Maged/Nasdaq-Stocks/tree/overmind) uses "Overmind"
+- [Main branch](https://github.com/A-Maged/Nasdaq-Stocks) uses "React-Query" & is deployed to [here](https://nasdaq-stocks.netlify.app)
+- [Overmind branch](https://github.com/A-Maged/Nasdaq-Stocks/tree/overmind) uses "Overmind" & is deployed to [here](https://overmind-nasdaq-stocks.netlify.app/)
 
 ## Contents
 
