@@ -95,7 +95,7 @@ Fix linting errors
 
 **UI Framework:** [Chakra-UI](https://chakra-ui.com/)
 
-**Server-State Manager:** [React-Query](https://react-query.tanstack.com/)
+**Server-State Manager:** [React-Query](https://react-query.tanstack.com/) & [Overmind](https://overmindjs.org/)
 
 **Testing:**
 
