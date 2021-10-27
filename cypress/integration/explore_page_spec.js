@@ -17,7 +17,7 @@ describe('/explore', () => {
         },
       },
       {
-        delay: 10,
+        delay: 20,
         fixture: 'listTickers.json',
       }
     ).as('listTickers');
@@ -56,7 +56,7 @@ describe('/explore', () => {
         },
       },
       {
-        delay: 10,
+        delay: 20,
         fixture: 'searchTickers.json',
       }
     ).as('searchTickers');
