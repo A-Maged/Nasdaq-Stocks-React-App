@@ -1,6 +1,6 @@
 import { ListStocks, StockDailyStats, StockDetails } from 'types/StockRepo';
 
-type State = {
+export type State = {
   list: Query<ListStocks.Stock[], ListStocks.ApiError> & {
     nextUrl: string | null;
   };

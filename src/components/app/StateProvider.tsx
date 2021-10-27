@@ -4,7 +4,9 @@ import { ReactNode } from 'react';
 
 import { config } from 'app';
 
-const overmind = createOvermind(config);
+const overmind = createOvermind(config, {
+  devtools: process.env.NODE_ENV === 'development' ? '127.0.0.1:3031' : false,
+});
 
 type Props = {
   children: ReactNode;
