@@ -5,9 +5,17 @@ type Props = {
   msg?: string;
   code?: number;
   refetch: () => void;
+  isLoading: boolean;
+  disabled: boolean;
 };
 
-export function ErrorMsgWithTryAgainBtn({ msg, code, refetch }: Props) {
+export function ErrorMsgWithTryAgainBtn({
+  msg,
+  code,
+  refetch,
+  disabled,
+  isLoading,
+}: Props) {
   const showTryAgainBtn = code === StatusCodes.TOO_MANY_REQUESTS;
 
   return (
@@ -18,12 +26,14 @@ export function ErrorMsgWithTryAgainBtn({ msg, code, refetch }: Props) {
 
       {showTryAgainBtn && (
         <Button
+          onClick={() => refetch()}
+          isLoading={isLoading}
+          disabled={isLoading}
           w="32"
           size="sm"
           mt="3"
           colorScheme="gray"
           color="black"
-          onClick={() => refetch()}
           data-testid="refetch-daily-stats"
         >
           Try again

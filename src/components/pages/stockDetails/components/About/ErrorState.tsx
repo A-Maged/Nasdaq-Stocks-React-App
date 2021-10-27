@@ -19,6 +19,8 @@ export function ErrorState() {
       msg={errorMsg}
       code={errorStatusCode}
       refetch={() => getStockDetails({ ticker })}
+      isLoading={details.isLoading}
+      disabled={details.isLoading}
     />
   );
 }

@@ -18,6 +18,8 @@ export function ErrorState() {
       msg={errorMsg}
       code={errorStatusCode}
       refetch={() => getStockDailyStats({ ticker })}
+      isLoading={dailyStats.isLoading}
+      disabled={dailyStats.isLoading}
     />
   );
 }
