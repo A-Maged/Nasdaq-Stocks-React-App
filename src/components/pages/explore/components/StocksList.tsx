@@ -30,8 +30,8 @@ export function StocksList() {
         }
       >
         <SimpleGrid columns={[1, 2, 3, 4]} spacingX={10} spacingY={3}>
-          {stocks?.pages.map((page) =>
-            page.results.map((stock) => (
+          {stocks?.pages?.map((page) =>
+            page.results?.map((stock) => (
               <StockListItem key={stock.ticker} stock={stock} />
             ))
           )}

@@ -30,7 +30,7 @@ export const PageStateProvider = ({ children }: { children: ReactNode }) => {
   const { data: stocks } = queryState;
 
   const stocksCount = stocks?.pages.reduce((count, { results }) => {
-    count += results.length;
+    count += results?.length || 0;
     return count;
   }, 0);
 
