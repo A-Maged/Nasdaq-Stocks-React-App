@@ -28,7 +28,7 @@ export class PolygonStockRepo implements StockRepo {
       })
       .then(({ data }) => {
         return {
-          results: data.results,
+          results: data.results ?? [],
           next_url: data.next_url,
         };
       });

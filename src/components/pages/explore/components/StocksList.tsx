@@ -1,4 +1,4 @@
-import { Button, Spinner, Center, SimpleGrid } from '@chakra-ui/react';
+import { Text, Button, Spinner, Center, SimpleGrid } from '@chakra-ui/react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useContextSelector } from 'use-context-selector';
 
@@ -15,8 +15,20 @@ export function StocksList() {
       isError: state?.queryState.isError!,
     }));
 
+  const isListEmpty =
+    stocks?.pages.reduce(
+      (count, page) => (count += page.results.length || 0),
+      0
+    ) === 0;
+
   return (
     <>
+      {isListEmpty && (
+        <Center my="10">
+          <Text fontWeight="bold">No Data</Text>
+        </Center>
+      )}
+
       <InfiniteScroll
         dataLength={stocksCount}
         next={fetchNextPage}
