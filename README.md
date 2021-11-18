@@ -2,8 +2,6 @@
 
 A stock market web app that shows all stocks listed in Nasdaq exchange with their ticker, name, and details using [Polygon](https://polygon.io/docs) API.
 
-This was a take home assignment i did for an interview with [Thndr](https://thndr.app).
-
 **Git branches:**
 
 There are two implementations for server-state management and caching
