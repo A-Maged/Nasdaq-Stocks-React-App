@@ -1,4 +1,5 @@
 import {
+  Text,
   Button,
   Spinner,
   Center,
@@ -54,6 +55,34 @@ export function StocksList() {
 
   return (
     <>
+      <Content />
+
+      {state.isError && !state.isLoading && (
+        <Button
+          onClick={() => refetch()}
+          w="48"
+          mx="auto"
+          mt="10"
+          mb="8"
+          colorScheme="gray"
+          color="black"
+        >
+          Try again
+        </Button>
+      )}
+    </>
+  );
+
+  function Content() {
+    if (state.data.length === 0 && !state.isLoading) {
+      return (
+        <Center my="10">
+          <Text fontWeight="bold">No Data</Text>
+        </Center>
+      );
+    }
+
+    return (
       <InfiniteScroll
         dataLength={state.data.length}
         next={fetchNextPage}
@@ -72,20 +101,6 @@ export function StocksList() {
           ))}
         </SimpleGrid>
       </InfiniteScroll>
-
-      {state.isError && !state.isLoading && (
-        <Button
-          onClick={() => refetch()}
-          w="48"
-          mx="auto"
-          mt="10"
-          mb="8"
-          colorScheme="gray"
-          color="black"
-        >
-          Try again
-        </Button>
-      )}
-    </>
-  );
+    );
+  }
 }
